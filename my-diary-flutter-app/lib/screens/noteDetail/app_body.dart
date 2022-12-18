@@ -59,7 +59,7 @@ Widget buildBody(context, Diary note) {
                     top: 8.0,
                   ),
                   child: Image.network(
-                    '$baseUrl:8090/api/files/diary/${note.id}/$image',
+                    'https://sheikhsoft.fly.dev/api/files/diary/${note.id}/$image',
                     height: 180.0,
                     width: 180.0,
                     fit: BoxFit.fill,

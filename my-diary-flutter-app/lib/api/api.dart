@@ -31,7 +31,7 @@ class Api {
 
     '***** Api debug mode ${_instance._debugEnable}'.log;
     '***** Api init completed $_instance'.log;
-    String apiUrl = '$apiRestUrl:$apiRestPort';
+    String apiUrl = apiRestUrl;
     _instance._rest = PocketBase(apiUrl);
 
     _instance._initialized = true;

@@ -15,11 +15,11 @@ void main() async {
     observers: <ProviderObserver>[AppProviderObserver()],
   );
 
-  String baseUrl = 'http://127.0.0.1';
+  String baseUrl = 'https://sheikhsoft.fly.dev';
 
   if (!kIsWeb) {
     if (Platform.isAndroid) {
-      baseUrl = 'http://10.0.2.2';
+      baseUrl = 'https://sheikhsoft.fly.dev';
     }
   }
 
