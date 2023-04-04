@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "826977366518",
+    "project_id": "eigoo-flutter-phone-riverpod",
+    "storage_bucket": "eigoo-flutter-phone-riverpod.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:826977366518:android:90ad333aceeeabacd317d7",
+        "android_client_info": {
+          "package_name": "com.example.my_diary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "826977366518-n319tipmfvr4fi4hab9q1oif67euod0e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBx5USVSZK5f9HCVsKOKxjV_zAdUM8LPAc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "826977366518-n319tipmfvr4fi4hab9q1oif67euod0e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
