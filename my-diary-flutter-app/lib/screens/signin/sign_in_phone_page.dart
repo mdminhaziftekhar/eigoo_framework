@@ -25,18 +25,18 @@ final selectedCountryProvider =
   return authState.maybeWhen(
     ready: (selectedCountry) => selectedCountry,
     orElse: () => CountryWithPhoneCode(
-    phoneCode: '44',
-    countryCode: 'GB',
-    exampleNumberMobileNational: '07400 123456',
-    exampleNumberFixedLineNational: '0121 234 5678',
-    phoneMaskMobileNational: '+00 00000 000000',
-    phoneMaskFixedLineNational: '+00 0000 000 0000',
-    exampleNumberMobileInternational: '+44 7400 123456',
-    exampleNumberFixedLineInternational: '+44 121 234 5678',
-    phoneMaskMobileInternational: '+00 0000 000000',
-    phoneMaskFixedLineInternational: '+00 000 000 0000',
-    countryName: 'United Kingdom',
-  ),
+      phoneCode: '44',
+      countryCode: 'GB',
+      exampleNumberMobileNational: '07400 123456',
+      exampleNumberFixedLineNational: '0121 234 5678',
+      phoneMaskMobileNational: '+00 00000 000000',
+      phoneMaskFixedLineNational: '+00 0000 000 0000',
+      exampleNumberMobileInternational: '+44 7400 123456',
+      exampleNumberFixedLineInternational: '+44 121 234 5678',
+      phoneMaskMobileInternational: '+00 0000 000000',
+      phoneMaskFixedLineInternational: '+00 000 000 0000',
+      countryName: 'United Kingdom',
+    ),
   );
 });
 
@@ -75,7 +75,7 @@ class SignInPhonePageBuilder extends ConsumerWidget {
       ),
       errorText: state.maybeWhen(
         error: (error) => error,
-        orElse: () => 'error',
+        orElse: () => '',
       ),
     );
   }
@@ -108,6 +108,7 @@ class SignInPhonePage extends StatefulWidget {
 class _SignInPhonePageState extends State<SignInPhonePage> {
   final controller = TextEditingController();
   final focusNode = FocusNode();
+  final _formKey = GlobalKey<FormBuilderState>();
 
   void initState() {
     super.initState();
@@ -159,26 +160,37 @@ class _SignInPhonePageState extends State<SignInPhonePage> {
                 ),
                 SizedBox(width: 5),
                 Flexible(
-                  child: TextFormField(
-                    focusNode: focusNode,
-                    keyboardType: TextInputType.phone,
-                    controller: controller,
-                    style: TextStyle(fontSize: 18),
-                    decoration: InputDecoration(
-                      hintText: widget.phonePlaceholder,
-                      hintStyle: TextStyle(
-                        fontSize: 18,
-                        letterSpacing: -0.2,
-                        color: Colors.grey[400],
+                  child: FormBuilder(
+                    key: _formKey,
+                    autovalidateMode: AutovalidateMode.always,
+                    child: TextFormField(
+                      validator: (value) {
+                        if (value!.length < 10) {
+                          return 'Phone number must be at least 10 characters';
+                        }
+                        return null;
+                      },
+                      
+                      focusNode: focusNode,
+                      keyboardType: TextInputType.phone,
+                      controller: controller,
+                      style: TextStyle(fontSize: 18),
+                      decoration: InputDecoration(
+                        hintText: widget.phonePlaceholder,
+                        hintStyle: TextStyle(
+                          fontSize: 18,
+                          letterSpacing: -0.2,
+                          color: Colors.grey[400],
+                        ),
+                        border: OutlineInputBorder(),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.grey, width: 1.0),
+                          borderRadius: BorderRadius.circular(3.0),
+                        ),
                       ),
-                      border: OutlineInputBorder(),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Colors.grey, width: 1.0),
-                        borderRadius: BorderRadius.circular(3.0),
-                      ),
+                      inputFormatters: [widget.formatter],
                     ),
-                    inputFormatters: [widget.formatter],
                   ),
                 ),
               ],
@@ -191,7 +203,7 @@ class _SignInPhonePageState extends State<SignInPhonePage> {
                 onPressed: widget.canSubmit ? widget.onSubmit : null,
               ),
             ),
-            if (widget.errorText != null) ErrorText(message: widget.errorText),
+            //if (widget.errorText != null) ErrorText(message: widget.errorText),
             SizedBox(height: 30),
           ]),
         ),
