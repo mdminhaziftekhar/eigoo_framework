@@ -1,14 +1,22 @@
 import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_diary/api/api.dart';
 import 'package:my_diary/api/app_provider_observer.dart';
+import 'package:my_diary/routing/app_router.dart';
 import 'package:my_diary/screens/home/home.dart';
+
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+     options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   final ProviderContainer container = ProviderContainer(
     // This observer is used for logging changes in all Riverpod providers.
@@ -24,8 +32,7 @@ void main() async {
   }
 
   final api = Api();
-  await api.initialize(
-      apiRestUrl: baseUrl, apiRestPort: '8090', debug: true);
+  await api.initialize(apiRestUrl: baseUrl, apiRestPort: '8090', debug: true);
   runApp(
     UncontrolledProviderScope(
       container: container,
@@ -55,7 +62,9 @@ class MyApp extends StatelessWidget {
           color: Colors.white,
         ),
       ),
-      home: const HomePage(),
+      onGenerateRoute: (settings) => AppRouter.onGenerateRoute(settings),
+      initialRoute: AppRoutes.startupPage,
+      // home: HomePage(),
     );
   }
 }
