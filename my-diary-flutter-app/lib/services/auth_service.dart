@@ -109,9 +109,10 @@ class AuthService extends StateNotifier<AuthState> {
       smsCode: smsCode,
     );
     final user = await _firebaseAuth.signInWithCredential(credential);
+
+    log('User : ${user.user}', name: 'User');
     // if (user != null) {
-      completion();
-    
+    completion();
   }
 
   Future<void> signOut() async {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:my_diary/screens/home/home.dart';
 import 'package:my_diary/screens/signin/sign_in_verification_page.dart';
 import 'package:pinput/pinput.dart';
 
@@ -44,6 +43,7 @@ class SignInVerificationPageBuilder extends ConsumerWidget {
       phoneNumber: model.formattedPhoneNumber,
       resendCode: () => model.resendCode(),
       verifyCode: (String smsCode) => model.verifyCode(smsCode),
+
       delayBeforeNewCode: (countdown.value ?? delayBeforeUserCanRequestNewCode),
       canSubmit: state.maybeWhen(
         canSubmit: () => true,
@@ -55,14 +55,15 @@ class SignInVerificationPageBuilder extends ConsumerWidget {
       ),
       errorText: state.maybeWhen(
         error: (error) => error,
-        orElse: () => 'Error', //tampered the code here
+        orElse: () => '', //tampered the code here
       ),
+
       key: null, //tampered the code
     );
   }
 }
 
-class SignInVerificationPage extends StatefulWidget {
+class SignInVerificationPage extends ConsumerStatefulWidget {
   const SignInVerificationPage({
     Key? key,
     required this.phoneNumber,
@@ -83,10 +84,11 @@ class SignInVerificationPage extends StatefulWidget {
   final Function(String smsCode) verifyCode;
 
   @override
-  State<StatefulWidget> createState() => _SignInVerificationPageState();
+  _SignInVerificationPageState createState() => _SignInVerificationPageState();
 }
 
-class _SignInVerificationPageState extends State<SignInVerificationPage> {
+class _SignInVerificationPageState
+    extends ConsumerState<SignInVerificationPage> {
   final TextEditingController controller = TextEditingController();
   final FocusNode focusNode = FocusNode();
 
@@ -99,6 +101,8 @@ class _SignInVerificationPageState extends State<SignInVerificationPage> {
 
   @override
   Widget build(BuildContext context) {
+    final state = ref.watch(signInVerificationModelProvider);
+
     final defaultPinTheme = PinTheme(
       textStyle: TextStyle(fontSize: 40),
       decoration: BoxDecoration(
@@ -136,6 +140,9 @@ class _SignInVerificationPageState extends State<SignInVerificationPage> {
                 defaultPinTheme: defaultPinTheme,
                 focusedPinTheme: focusedPinTheme,
                 length: 6,
+                onCompleted: (value) {
+                  widget.verifyCode(value);
+                },
                 onTap: () {
                   if (widget.errorText != null) {
                     controller.text = "";
@@ -147,9 +154,9 @@ class _SignInVerificationPageState extends State<SignInVerificationPage> {
                 pinAnimationType: PinAnimationType.none,
                 pinputAutovalidateMode: PinputAutovalidateMode.disabled,
                 validator: (s) {
-                  if (widget.errorText == null && s?.length == 6)
+                  if (widget.errorText == null && s?.length == 6) {
                     widget.verifyCode(s!);
-                  // Navigator.pushNamed(context,AppRoutes.homePage);
+                  }
                   return null;
                 },
               ),
@@ -165,6 +172,10 @@ class _SignInVerificationPageState extends State<SignInVerificationPage> {
               ),
             ),
             if (widget.errorText != null) ErrorText(message: widget.errorText),
+            SizedBox(
+              height: 20,
+            ),
+            
           ]),
         ),
       ),

@@ -44,7 +44,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           },
         ),
       ),
-      drawer: const Sidebar(),
+      drawer:  Sidebar(),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: SizedBox(
         width: 65.0,

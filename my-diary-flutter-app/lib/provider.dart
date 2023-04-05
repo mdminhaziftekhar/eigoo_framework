@@ -19,22 +19,3 @@ final authStateProvider = StateNotifierProvider<AuthService, AuthState>((ref) {
 
 final authStateChangesProvider = StreamProvider<User?>(
     (ref) => ref.watch(authServiceProvider).authStateChanges());
-
-// new one
-
-// final authenticationServiceProvider = Provider<AuthenticationService>(
-//   (ref) => AuthenticationService(),
-// );
-
-// final authenticationStateProvider =
-//     StateNotifierProvider<AuthenticationService, AuthenticationState>(
-//   (ref) {
-//     final authenticationService = ref.watch(authenticationServiceProvider);
-//     return authenticationService;
-//   },
-// );
-
-// final authenticationStateChagesProvider = StreamProvider<User?>(
-//   (ref) =>
-//       ref.watch(authenticationServiceProvider).authenticationStateChanges(),
-// );
