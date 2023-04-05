@@ -149,7 +149,7 @@ class _SignInVerificationPageState extends State<SignInVerificationPage> {
                 validator: (s) {
                   if (widget.errorText == null && s?.length == 6)
                     widget.verifyCode(s!);
-                  Navigator.pushNamed(context,AppRoutes.homePage);
+                  // Navigator.pushNamed(context,AppRoutes.homePage);
                   return null;
                 },
               ),
