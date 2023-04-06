@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_diary/services/auth_service.dart';
 
+import '../../provider.dart';
 import '../../routing/app_router.dart';
+import '../../state/sign_in_state.dart';
 import '../../widgets/buttons.dart';
 
-class SignInLandingPage extends StatelessWidget {
+class SignInLandingPage extends ConsumerWidget {
   Future<void> _openSignup(BuildContext context) async {
     final navigator = Navigator.of(context);
     await navigator.pushNamed(
@@ -13,7 +17,7 @@ class SignInLandingPage extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -57,6 +61,18 @@ class SignInLandingPage extends StatelessWidget {
                 onPressed: () => _openSignup(context),
               ),
             ),
+
+            Spacer(),
+            SizedBox(
+              width: double.infinity,
+              child: CustomElevatedButton(
+                title: "Sign in with Google",
+                onPressed: () {
+                  AuthService().signInWithGoogle();
+                },
+              ),
+            ),
+
             SizedBox(height: 100),
           ],
         ),

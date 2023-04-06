@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_libphonenumber/flutter_libphonenumber.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'dart:ui' as ui;
 
 import '../state/auth_state.dart';
@@ -110,9 +111,31 @@ class AuthService extends StateNotifier<AuthState> {
     );
     final user = await _firebaseAuth.signInWithCredential(credential);
 
-    log('User : ${user.user}', name: 'User');
+    //log('User : ${user.user}', name: 'User');
     // if (user != null) {
     completion();
+  }
+
+  //Google sign in
+  signInWithGoogle() async {
+    //begin interactive sign in process
+
+    final GoogleSignInAccount? gUser =
+        await GoogleSignIn(scopes: <String>["email"]).signIn();
+
+    log('{$gUser.user}', name: 'Google User');
+
+    // obtain with details from request
+    final GoogleSignInAuthentication gAuth = await gUser!.authentication;
+
+    //create a new credential for user
+    final credential = GoogleAuthProvider.credential(
+      accessToken: gAuth.accessToken,
+      idToken: gAuth.idToken,
+    );
+
+    // finally, let's sign in
+    return await _firebaseAuth.signInWithCredential(credential);
   }
 
   Future<void> signOut() async {

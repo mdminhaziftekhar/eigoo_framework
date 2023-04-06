@@ -174,7 +174,7 @@ class _SignInPhonePageState extends State<SignInPhonePage> {
                       focusNode: focusNode,
                       keyboardType: TextInputType.phone,
                       controller: controller,
-                      style: TextStyle(fontSize: 18),
+                      style: const TextStyle(fontSize: 18),
                       decoration: InputDecoration(
                         hintText: widget.phonePlaceholder,
                         hintStyle: TextStyle(
@@ -182,10 +182,10 @@ class _SignInPhonePageState extends State<SignInPhonePage> {
                           letterSpacing: -0.2,
                           color: Colors.grey[400],
                         ),
-                        border: OutlineInputBorder(),
+                        border: const OutlineInputBorder(),
                         focusedBorder: OutlineInputBorder(
                           borderSide:
-                              BorderSide(color: Colors.grey, width: 1.0),
+                              const BorderSide(color: Colors.grey, width: 1.0),
                           borderRadius: BorderRadius.circular(3.0),
                         ),
                       ),
@@ -195,7 +195,7 @@ class _SignInPhonePageState extends State<SignInPhonePage> {
                 ),
               ],
             ),
-            SizedBox(height: 25),
+            const SizedBox(height: 25),
             SizedBox(
               width: double.infinity,
               child: CustomElevatedButton(
@@ -204,7 +204,7 @@ class _SignInPhonePageState extends State<SignInPhonePage> {
               ),
             ),
             //if (widget.errorText != null) ErrorText(message: widget.errorText),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
           ]),
         ),
       ),

@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -15,7 +16,7 @@ class StartupPage extends ConsumerWidget {
     return authStateChanges.when(
       data: (user) {
         if (user != null) {
-          // print(user);
+          
           return HomePage();
         } else {
           return SignInLandingPage();
@@ -24,9 +25,7 @@ class StartupPage extends ConsumerWidget {
       loading: () => Center(
         child: CircularProgressIndicator(),
       ),
-      error: (error, _) => ErrorPage(
-        message: error.toString(),
-      ),
+      error: (error, _) => ErrorPage(message: error.toString(), ),
     );
   }
 }

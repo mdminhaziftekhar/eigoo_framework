@@ -38,11 +38,12 @@ class AppRouter {
           builder: (_) => SignInVerificationPageBuilder(),
           settings: settings,
         );
-        case AppRoutes.homePage:
+      case AppRoutes.homePage:
         return MaterialPageRoute<dynamic>(
           builder: (_) => HomePage(),
           settings: settings,
         );
+      
       default:
         return null;
     }

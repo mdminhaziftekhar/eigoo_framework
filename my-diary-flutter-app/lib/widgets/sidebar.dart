@@ -27,7 +27,8 @@ class Sidebar extends ConsumerWidget {
            Padding(
             padding: EdgeInsets.only(top: 75.0, left: 14.0, bottom: 40),
             child: Text(
-              phoneNumber,
+              'placeholder',
+              //phoneNumber,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
